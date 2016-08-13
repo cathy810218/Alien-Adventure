@@ -16,4 +16,5 @@ extension UDGameSM {
             hero.addBadge(SpecialBadge(requestType: alien.currentRequestType))
         }
     }
+
 }

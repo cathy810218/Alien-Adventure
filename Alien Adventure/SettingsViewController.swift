@@ -38,24 +38,32 @@ class SettingsViewController: UIViewController {
         
         addTargets()
     }
+//    if the value changes for the showBadgesSwitch, then call the showBadges method. Since the showBadges method takes one parameter, you'll need to use Selector("showBadges:")—the colon after showBadges indicates that the method takes one parameter.
     
     // MARK: Add Targets
-    
     func addTargets() {
-        print("adding targets!")
+        startGameButton.addTarget(self,
+                           action: #selector(startGame),
+                           forControlEvents: .TouchUpInside)
+        showBadgesSwitch.addTarget(self, action: #selector(showBadges(_:)), forControlEvents: .ValueChanged)
+        levelSegmentedControl.addTarget(self, action: #selector(switchLevel(_:)), forControlEvents: .ValueChanged)
     }
     
     // MARK: Implementing Actions
     
     func switchLevel(segmentControl: UISegmentedControl) {
-        print("level control has changed!")
+        Settings.Common.Level = segmentControl.selectedSegmentIndex
+        print("level control has changed! \(segmentControl.selectedSegmentIndex)")
     }
     
     func showBadges(switchControl: UISwitch) {
-        print("show badges switch has changed!")
+        Settings.Common.ShowBadges = true
     }
     
     func startGame() {
-        print("start button has been pressed!")
+        let alienAdventureViewController = self.storyboard!.instantiateViewControllerWithIdentifier("AlienAdventureViewController")
+            as! AlienAdventureViewController
+        
+        self.presentViewController(alienAdventureViewController, animated: true, completion: nil)
     }
 }

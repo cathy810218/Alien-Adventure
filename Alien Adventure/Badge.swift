@@ -11,10 +11,12 @@ import SpriteKit
 class Badge: SKSpriteNode {
 
     var requestType: UDRequestType
-    
+
     init(requestType: UDRequestType) {
         self.requestType = requestType
-        super.init(texture: nil, color: UIColor.clearColor(), size: CGSizeMake(48, 48))
+        let badgeTexture = SKTexture.init(image: UIImage(named: "BadgeMagenta")!)
+
+        super.init(texture: badgeTexture, color: UIColor.clearColor(), size: CGSizeMake(48, 48))
     }
 
     required init?(coder aDecoder: NSCoder) {

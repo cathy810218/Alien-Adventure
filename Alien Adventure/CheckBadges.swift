@@ -9,6 +9,17 @@
 extension Hero {
     
     func checkBadges(badges: [Badge], requestTypes: [UDRequestType]) -> Bool {
+        var badgeTypeArray = [UDRequestType]()
+        
+        for badge in badges {
+            badgeTypeArray.append(badge.requestType)
+        }
+        
+        for type in requestTypes {
+            if !badgeTypeArray.contains(type) {
+                return false
+            }
+        }
         return true
     }
     
