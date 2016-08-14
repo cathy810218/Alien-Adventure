@@ -20,36 +20,30 @@ class SpecialBadge: Badge {
         super.init(requestType: requestType)
         let badgeTexture = UIImage(named: "BadgeTeal")!
         self.texture = SKTexture.init(image: badgeTexture)
-        generateSpecialBadgeWithAnimation()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    func generateSpecialBadgeWithAnimation() {
-        let rand = arc4random_uniform(3)
+        
+        // random badge
+        let rand = BadgeAnimation(rawValue: Int(arc4random_uniform(3)))
         
         let x: Float = 10
         let y: Float = 6
         let numberOfTimes = 2.0 / 0.04
         var actionsArray = [SKAction]()
         
-        switch rand {
-        case 0:
-            // case 0
+        switch rand! {
+        case .GrowAndShrink:
+        // growAndShrink animation code
             let action1 = SKAction.scaleTo(0.8, duration: 1.0)
             let action2 = SKAction.scaleTo(1.1, duration: 1.0)
             let sequencedAction = SKAction.sequence([action1, action2])
             runAction(SKAction.repeatActionForever(sequencedAction))
-        case 1:
-            // case 1
+
+        case .Rotate:
+        // rotate animation code
             let action = SKAction.rotateByAngle(CGFloat(-M_PI), duration: 1.5)
             runAction(SKAction.repeatActionForever(action))
-        case 2:
-            
-            // case 2
+
+        case .Shake:
+            // shake animation code
             for _ in 1...Int(numberOfTimes) {
                 let dX = Float(arc4random_uniform(UInt32(x))) - x / 2
                 let dY = Float(arc4random_uniform(UInt32(y))) - y / 2
@@ -60,10 +54,11 @@ class SpecialBadge: Badge {
             
             let sequencedAction = SKAction.sequence(actionsArray)
             runAction(SKAction.repeatActionForever(sequencedAction))
-        default:
-            break
         }
-
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
